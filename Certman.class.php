@@ -648,11 +648,11 @@ class Certman implements BMO {
 						if (!empty($einfo['hints'])) {
 							$hints = $einfo['hints'];
 						}
-						$messages[] = array('type' => 'danger', 'message' => sprintf(_('There was an error updating certificate "%s": %s'),$cert['basename'],$emessage), 'hints' => $einfo['hints']);
+						$messages[] = array('type' => 'danger', 'message' => sprintf(_('There was an error updating certificate "%s": %s'),($cert['basename'] ?? ''),$emessage), 'hints' => ($einfo['hints'] ?? ''));
 						continue;
 					}
 				} else {
-					$messages[] = array('type' => 'warning', 'message' => sprintf(_('Certificate named "%s" has expired. Please update this certificate in Certificate Manager'),$cert['basename']));
+					$messages[] = array('type' => 'warning', 'message' => sprintf(_('Certificate named "%s" has expired. Please update this certificate in Certificate Manager'),($cert['basename'] ?? '')));
 					continue;
 				}
 			} elseif (time() > $renewafter || $force) {
