@@ -617,12 +617,12 @@ class Certman implements BMO {
 						// This will probably fail if they're using http_S_ with an expired
 						// cert, but LE should never get to this point.
 						$settings = array(
-							"countryCode" => $cert['additional']['C'],
-							"state" => $cert['additional']['ST'],
+							"countryCode" => $cert['additional']['C'] ?? '',
+							"state" => $cert['additional']['ST'] ?? '',
 							"challengetype" => "http", // https will not work
-							"email" => $cert['additional']['email'],
-							"san" => $cert['additional']['san'],
-							"removeDstRootCaX3" => $cert['additional']['removeDstRootCaX3'],
+							"email" => $cert['additional']['email'] ?? '',
+							"san" => $cert['additional']['san'] ?? '',
+							"removeDstRootCaX3" => $cert['additional']['removeDstRootCaX3'] ?? '',
 						);
 
 						$this->updateLE($cert['info']['crt']['subject']['CN'], $settings, false, $force);
@@ -660,12 +660,12 @@ class Certman implements BMO {
 				if($cert['type'] == 'le') {
 					try {
 						$settings = array(
-							"countryCode" => $cert['additional']['C'],
-							"state" => $cert['additional']['ST'],
+							"countryCode" => $cert['additional']['C'] ?? '',
+							"state" => $cert['additional']['ST'] ?? '',
 							"challengetype" => "http", // https will not work
-							"email" => $cert['additional']['email'],
-							"san" => $cert['additional']['san'],
-							"removeDstRootCaX3" => $cert['additional']['removeDstRootCaX3'],
+							"email" => $cert['additional']['email'] ?? '',
+							"san" => $cert['additional']['san'] ?? '',
+							"removeDstRootCaX3" => $cert['additional']['removeDstRootCaX3'] ?? '',
 						);
 
 						$this->updateLE($cert['info']['crt']['subject']['CN'], $settings, false, $force);
