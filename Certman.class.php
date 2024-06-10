@@ -2072,7 +2072,7 @@ class Certman implements BMO {
 			} catch(\Exception $e) { continue; }
 
 			$decoded = json_decode($response->body, 1);
-			if (!empty($decoded['Answer']) && isset($decoded['status']) && $decoded['status'] == 0) {
+			if (!empty($decoded['Answer']) && isset($decoded['Status']) && $decoded['Status'] == 0) {
 				foreach($decoded['Answer'] as $a) {
 					if($a['type'] == 1)  $ips[] = $a['data'];
 				}
