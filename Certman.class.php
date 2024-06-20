@@ -88,6 +88,7 @@ class Certman implements BMO {
 				//return false;
 			}
 		}
+		$this->updateDefault();
 		return true;
 	}
 
@@ -1541,7 +1542,20 @@ class Certman implements BMO {
 		$sql = "INSERT INTO certman_certs (`caid`, `basename`, `description`, `type`, `additional`) VALUES (?, ?, ?, ?, ?)";
 		$sth = $this->db->prepare($sql);
 		$sth->execute(array($caid,$base,$description,$type,json_encode($additional)));
-		return $this->db->lastInsertId();
+		$lastInsertId=$this->db->lastInsertId();
+		$this->updateDefault();
+		return $lastInsertId;
+	}
+
+	public function updateDefault() {
+		$sql = "SELECT cid, `default` FROM certman_certs";
+		$sth = $this->db->prepare($sql);
+		$sth->execute();
+		$results = $sth->fetchAll(PDO::FETCH_ASSOC);
+		if (count($results) == 1 && $results[0]['default'] == 0) {
+			$updateStmt = $this->db->prepare("UPDATE certman_certs SET `default` = 1 WHERE cid = ?");
+			$updateStmt->execute([$results[0]['cid']]);
+		}
 	}
 
 	/**
