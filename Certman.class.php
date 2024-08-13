@@ -1456,6 +1456,9 @@ class Certman implements BMO {
 	 * @param {string} $basename	 The CSR Basename
 	 */
 	public function saveCSR($basename) {
+		if (is_array($basename)) {
+			$basename = implode(',', $basename);
+		}
 		$sql = "INSERT INTO certman_csrs (`basename`) VALUES (?)";
 		$sth = $this->db->prepare($sql);
 		$sth->execute(array($basename));
